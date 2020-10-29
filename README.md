@@ -10,7 +10,7 @@ RevisitTime is a MATLAB toolkit for calculating revisit time metrics for differe
 N.H. Crisp, S. Livadiotti, P.C.E. Roberts, A Semi-Analytical Method for Calculating Revisit Time for Satellite Constellations with Discontinuous Coverage, ArXiv E-Prints. (2018).
 
 ## Legal
-Copyright 2017, The University of Manchester
+Copyright (C) 2017 The University of Manchester
 Written by Nicholas H. Crisp and Sabrina Livadiotti
 
 RevisitTime is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL) as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
