@@ -1,4 +1,4 @@
-# ADBSat (Aerodynamic Database for Satellites)
+# RevisitTime Changelog
 All notable changes to this project will be documented in this file.
 
 Always keep a [Unreleased] section at the top for tracking changes
