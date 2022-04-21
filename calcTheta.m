@@ -59,7 +59,7 @@ end
 r_s = (a*(1-ecc^2))./(1 + ecc*cos(nu)); % Orbit radius [m]
 h_ell = (R_E - R_ell) + (r_s - R_E); % Orbit altitude [m]
 
-if nargin == 8 && f_p && f_e  % both psi and elv known
+if nargin == 7 && f_p && f_e  % both psi and elv known
     % psi and elv allocation in the respective variables
     psi = var(1,1); 
     elv = var(1,2);
