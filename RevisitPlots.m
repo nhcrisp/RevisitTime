@@ -24,10 +24,10 @@
 figure (1)
 plot(h_a/1e3, squeeze(MaxRevisit(1,:,1)))
 xlabel('Altitude [km]'), ylabel('Maximum Revisit Time [day]')
-ylim([0, min([max(max((MaxRevisit))),dayLimit(2)])]); 
+ylim([0, min([max(max((MaxRevisit))),dayLimit(2)])]);
 
 % Contour plot of Maximum Revisit Time [day] for varying psi angle [deg] and altitude [km]
-if flag == 0 && numel(psi)>=2 
+if flag == 0 && numel(psi)>=2
     figure (2)
     contour(h_a/1e3, psi, squeeze(MaxRevisit(1,:,:))', 'fill', 'on')
     xlabel('Altitude [km]'), fnt = ylabel('\psi [deg]');
@@ -40,9 +40,54 @@ end
 % Contour plot of Maximum Revisit time [day] according to altitude [km] and inclination [deg]
 if SSO == 0
     figure (3)
+
     plot(inc, squeeze(MaxRevisit(:,1,1)))
     xlabel('Inclination [km]'), ylabel('Maximum Revisit Time [day]')
-    figure (4)
+    % Contour / Line plot of Maximum Revisit Time [day] vs altitude [km] and inclination [deg]
+    if SSO == 0
+        % Prepare Z for indexing: ensure MaxRevisit dims are [nInc, nHa, nPsi] or similar
+        Z = squeeze(MaxRevisit(:,:,1)); % dimensions may be [nInc x nHa] or [1 x nHa] or [nInc x 1]
+
+        nInc = numel(inc);
+        nHa  = numel(h_a);
+
+        % Both vary -> contour
+        if nInc >= 2 && nHa >= 2
+            figure(4)
+            % contour expects Z to be size length(Y) x length(X) where X is h_a, Y is inc
+            % If Z currently is [nHa x nInc], transpose it
+            if isequal(size(Z), [nHa, nInc])
+                Z = Z';
+            end
+            contour(h_a/1e3, inc, Z, 'fill', 'on')
+            xlabel('Altitude [km]')
+            fnt = ylabel('Inclination [deg]');
+            c = colorbar;
+            c.Label.String = 'Maximum Revisit Time [day]';
+            c.Label.FontSize = get(fnt, 'fontsize');
+            if flag == 1
+                title({['Contour plot of Maximum Revisit Time for'];[' varying orbit altitude and inclination'];['\epsilon = ', num2str(elv), ' deg, \phi = ', num2str(lat), ' deg']})
+            elseif flag == 0 && numel(psi) == 1
+                title({['Contour plot of Maximum Revisit Time for'];[' varying orbit altitude and inclination'];['\psi = ', num2str(psi), ' deg, \phi = ', num2str(lat), ' deg']})
+            end
+
+            % Only altitude varies -> 1-D plot vs altitude
+        elseif nHa >= 2 && nInc <= 1
+            figure(4)
+            plot(h_a/1e3, reshape(Z, 1, []))
+            xlabel('Altitude [km]'), ylabel('Maximum Revisit Time [day]')
+
+            % Only inclination varies -> 1-D plot vs inclination
+        elseif nInc >= 2 && nHa <= 1
+            figure(4)
+            plot(inc, reshape(Z, [], 1))
+            xlabel('Inclination [deg]'), ylabel('Maximum Revisit Time [day]')
+
+        else
+            warning('Not enough points to plot altitude/inclination surface. Need at least two values in one dimension.');
+        end
+    end
+    figure (5)
     contour(h_a/1e3, inc, squeeze(MaxRevisit(:,:,1)), 'fill', 'on')
     xlabel('Altitude [km]'), fnt = ylabel('Inclination [deg]') ;
     c = colorbar;
@@ -56,11 +101,11 @@ if SSO == 0
 end
 
 % Contour plot of Maximum Revisit time [day] according to altitude [km] and inclination [deg], angle of view (psi) [deg] is fixed
-if SSO == 0 && flag == 0 && numel(psi) == 1 
+if SSO == 0 && flag == 0 && numel(psi) == 1
     figure (1)
     contour(h_a/1e3, inc, squeeze(MaxRevisit(:,:,1)), 'fill', 'on')
     xlabel('Altitude [km]'), ylabel('Inclination [deg]')
     c = colorbar;
     c.Label.String = '\fontsize{10.5} Maximum Revisit Time [day]';
-title({['Contour plot of Maximum Revisit Time for'];[' varying orbit altitude and inclination'];['\psi = ', num2str(psi), ' deg, \phi = ', num2str(lat), ' deg']})
+    title({['Contour plot of Maximum Revisit Time for'];[' varying orbit altitude and inclination'];['\psi = ', num2str(psi), ' deg, \phi = ', num2str(lat), ' deg']})
 end
