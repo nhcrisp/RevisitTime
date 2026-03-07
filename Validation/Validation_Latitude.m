@@ -1,3 +1,51 @@
+clc; clear;
+
+% PURPOSE
+% Computes revisit time for a fixed orbit while varying the
+% target latitude. Useful to evaluate coverage performance
+% across different regions of Earth.
+%
+% ORBIT PARAMETERS
+% sma : semi-major axis [km above Earth radius]
+% ecc : eccentricity
+% inc : inclination [deg]
+% RAAN: right ascension of ascending node [deg]
+% AoP : argument of perigee [deg]
+%
+% SENSOR PARAMETERS
+% elv : minimum elevation constraint [deg]
+% psi : sensor half-cone angle (unused if elevation is defined)
+%
+% LATITUDE RANGE
+% lat : vector of target latitudes [deg]
+% Example:
+% lat = 0:5:80
+%
+% CONSTELLATION SETTINGS
+% Single satellite analysis:
+% noSats   = 1
+% noPlanes = 1
+% relSpacing = 1
+%
+% FLAGS
+% OneSideView     : 1 → sensor observes only one side of orbit
+% DescendAscend   : 1 → accesses allowed on both ascending and descending passes
+%
+% TIME LIMITS
+% dayLimit(1) : revisit search increment [days]
+% dayLimit(2) : maximum analysis duration [days]
+%
+% OUTPUTS
+% maxRevisit(lat) : maximum revisit time for each latitude [days]
+%
+% Converted result:
+% maxRevisit_hr
+%
+% NOTES
+% - Shows how revisit time varies from equator to high latitudes.
+% - Particularly useful for analyzing polar or near-polar orbits.
+% ================================================================
+
 R_E = 6378.137;
 
 sma = (R_E + 500);
