@@ -1,6 +1,50 @@
 clear
 clc
 
+% PURPOSE
+% Computes revisit time for different satellite constellation
+% configurations. Each index i of the different vectors represents a different constellation.
+%
+% PARAMETERS TO MODIFY
+% sma = 6378.137 + [700 1100 1500];  : orbital altitude vector [km above Earth radius]
+% ecc = zeros(1,10);                 : eccentricity
+% inc = [90 86 96]                   : inclination [deg]
+% elv = [0 10 20];                   : minimum elevation angle constraint [deg]
+% lat = zeros(1,3);                  : target latitude [deg]
+% psi = [];                          : ???????????????
+%
+% noSats = [3 3 3];                  : total number of satellites in constellation
+% noPlanes = [3 3 3];                : number of orbital planes
+% relSpacing  = [0 0 1];             : relative satellite spacing between planes
+%
+% SENSOR PARAMETERS
+% elv        : elevation mask angle (ground station constraint)
+% psi        : sensor half-cone angle (if used instead of elevation)
+%
+% FLAGS
+% OneSideView     : 1 → sensor only looks on one side of orbit
+% DescendAscend   : 1 → accesses allowed on ascending AND descending passes
+%
+% TIME LIMITS
+% dayLimit(1) : revisit search step [days]
+% dayLimit(2) : maximum analysis duration [days]
+%
+% OUTPUTS
+% maxRevisit  : maximum revisit time [days]
+% meanRevisit : average revisit time [days]
+%
+% Converted results:
+% maxRevisit_hr
+% maxRevisit_min
+% maxRevisit_sec
+%
+% NOTES
+% - Each index i corresponds to a different constellation configuration.
+% - Useful for comparing Walker-like constellations with different
+%   altitudes, inclinations, and satellite distributions.
+% ================================================================
+
+
 sma = 6378.137 + [700 1100 1500];
 ecc = zeros(1,10);
 inc = [90 86 96];
