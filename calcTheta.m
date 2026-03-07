@@ -59,7 +59,7 @@ end
 r_s = (a*(1-ecc^2))./(1 + ecc*cos(nu)); % Orbit radius [m]
 h_ell = (R_E - R_ell) + (r_s - R_E); % Orbit altitude [m]
 
-if nargin == 7 && f_p && f_e  % both psi and elv known
+if nargin == 7 && f_p && f_e  && size(var,2)==2 % both psi and elv known
     % psi and elv allocation in the respective variables
     psi = var(1,1); 
     elv = var(1,2);
@@ -99,9 +99,9 @@ elseif nargin == 7 && f_e && ~f_p %Elv angle is known, Psi angle is unknown
 %         theta = 
 %     end
 
-elseif nargin == 7 && f_p && f_e 
+elseif nargin == 7 && f_p && f_e && size(var,2)==1 
     % Loop created for theta_range computation in listPasses.m. In case of f_p and f_e = 1, this
-    % loop compute theta according to the angle (between psi and elv) that was find out to be more
+    % loop compute theta according to the angle (between psi and elv) that was found out to be more
     % restrictive in the previous loop
     if flag == 1
         elv = var;
@@ -110,7 +110,7 @@ elseif nargin == 7 && f_p && f_e
     elseif flag == 0
         psi = var;
         gam = 180 - asind(((R_ell+h_ell)*sind(psi))./R_ell);
-        rho = R_ell*cosd(gam)+(R_ell+h_ell)*cosd(psi); 
+        rho = R_ell.*cosd(gam)+(R_ell+h_ell)*cosd(psi); 
         theta = asind((rho*sind(psi))./R_ell);
         elv_psi = psi;
     end
