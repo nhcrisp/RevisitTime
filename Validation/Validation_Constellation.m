@@ -11,7 +11,7 @@ clc
 % inc = [90 86 96]                   : inclination [deg]
 % elv = [0 10 20];                   : minimum elevation angle constraint [deg]
 % lat = zeros(1,3);                  : target latitude [deg]
-% psi = [];                          : ???????????????
+% psi = [];                          : sensor half cone angle [deg] - not used here
 %
 % noSats = [3 3 3];                  : total number of satellites in constellation
 % noPlanes = [3 3 3];                : number of orbital planes
