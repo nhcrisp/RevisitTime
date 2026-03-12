@@ -27,7 +27,7 @@ clc
 % Inputs
 OneSideView = 0; % Flag for one-side looking [0/1]
 DescendAscend = 1; % Flag for access on both descending and ascending pass [0/1]
-SSO = 0; % SSO orbit flag --> inf not SS0 then specify the inclination inside the if statement below
+SSO = 0; % SSO orbit flag --> if not SS0 then specify the inclination inside the if statement below
 if SSO == 0
     inc_min = 60; inc_max = 65; % Min/Max orbit inclination [deg]
     inc_delta = 5; % Inclination step [deg]
@@ -46,10 +46,10 @@ h_delta = 1e3; % Altitude step [m]
 psi=[];
 elv=[];
 
-%the code will cycle through the range of fov you specify until the 100% coverage condition is met
-psi_min = input('Type sensor Min off-nadir FoV (half-cone) angle [deg]:  '); %half beam width of the fov cone
-psi_max = input('Type sensor Max off-nadir FoV (half-cone) angle [deg]:  '); %minimum fove con half width
-elv = input('Type elevation angle [deg]:  '); %angle from the local horizo below which the graoundpoint does not see the satellite
+% The code will cycle through the range of FoV you specify until the 100% coverage condition is met
+psi_min = input('Type sensor Min off-nadir FoV (half-cone) angle [deg]:  '); % Half beam width of the fov cone
+psi_max = input('Type sensor Max off-nadir FoV (half-cone) angle [deg]:  '); % Minimum FoV cone half width
+elv = input('Type elevation angle [deg]:  '); % Angle from the local horizon below which the graoundpoint does not see the satellite
 
 
 psi = [psi_min,psi_max];
