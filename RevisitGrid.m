@@ -49,7 +49,7 @@ elv=[];
 % The code will cycle through the range of FoV you specify until the 100% coverage condition is met
 psi_min = input('Type sensor Min off-nadir FoV (half-cone) angle [deg]:  '); % Half beam width of the fov cone
 psi_max = input('Type sensor Max off-nadir FoV (half-cone) angle [deg]:  '); % Minimum FoV cone half width
-elv = input('Type elevation angle [deg]:  '); % Angle from the local horizon below which the graoundpoint does not see the satellite
+elv = input('Type elevation angle [deg]:  '); % Angle from the local horizon below which the satellite is no longer visible from the ground point
 
 
 psi = [psi_min,psi_max];
